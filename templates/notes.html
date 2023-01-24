@@ -1,0 +1,31 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+
+
+
+<div class="accordion mt-5" id="accordionExample">
+    {% for playlist in playlists %}
+    <div class="accordion-item">
+
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {{playlist.name}}
+        </button>
+      </h2>
+      
+      {% for note in notes %}
+        {% if note.playlist_id == playlist.playlist_id %}
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                <strong>{{note.note}}</strong>
+                </div>
+            </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock content %}
+

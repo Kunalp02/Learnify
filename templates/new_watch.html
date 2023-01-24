@@ -1,0 +1,108 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+
+
+<div class="container" data-aos="fade-up" data-aos-duration="500" data-aos-delay="50" data-aos-once="true" style="margin-top: 22px;height: auto;">
+  <div class="row">
+      <div class="col-md-8 d-flex flex-column flex-shrink-1 justify-content-center"><iframe id="video-iframe" src="https://www.youtube.com/embed/{{ first_video }}?enablejsapi=1&autoplay=1&controls=1&showinfo=0&disablekb=1&fs=0&rel=0" allowfullscreen="" frameborder="0"width="100%" height="450px" ></iframe>
+          <div class="row">
+              <div class="col d-flex justify-content-start" style="padding: 12px;">
+                  
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4 d-flex flex-column justify-content-center align-items-center" style="background: #c2c1ff;">
+          <h1 style="width: 100%;font-size: 26px;margin-top: 0px;">&nbsp;Playlist</h1>
+          <ul class="list-group" style="display: inline-block;width: 100%;max-width: none;height: auto;padding: 5px;margin: 5px;">
+            {% for video in videos %}
+              {% if video != first_video %}
+                <li class="list-group-item"><a style="text-decoration: none; color:black;" href="#" onclick="changeVideo('{{ video.snippet.resourceId.videoId }}')">{{ video.snippet.title }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          <nav>
+              <ul class="pagination">
+                {% if videos.has_previous %}
+                <li class="page-item">
+                    <li class="page-item"><a class="page-link" aria-label="Previous"  href="?page={{ videos.previous_page_number }}" ><span aria-hidden="true">«</span></a></li>
+                </li>
+                {% endif %}
+                <li class="page-item current p-2">
+                  Page {{ videos.number }} of {{ videos.paginator.num_pages }}
+                {% if videos.has_next %}
+                <li class="page-item">
+                  <a class="page-link">Next</a>
+                  <li class="page-item"><a class="page-link" aria-label="Next" href="?page={{ videos.next_page_number }}"><span aria-hidden="true">»</span></a></li>
+                </li>
+                {% endif %}
+              </ul>
+          </nav>
+      </div>
+  </div>
+
+
+ {% include 'includes/alerts.html' %}
+
+ <div style="width: 20%;"><a class="btn btn-primary" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">Take Notes</a>
+  <div class="collapse show" id="collapse-1">
+      <form action="{% url 'add_note' playlist_id  %}" method="POST" class="mt-2">
+        {% csrf_token %}
+        <div class="form-group">  
+          <textarea name="note" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Text"></textarea>
+          <button class="btn btn-primary mt-2">Add Note</button>
+      </form>
+  </div>
+</div>
+
+ {% if notes %}
+  <div class="container" style="margin-top: 25px;padding: 5px;">
+    <h1>Previous Notes</h1>
+    {% for note in notes %}
+    <div class="card" style="width: 250px;">
+        <div class="card-body" style="background: #fbea1d;border-radius: 20px;">
+          <form action="{% url 'delete_note' playlist_id note.id %}" method="POST">
+            {% csrf_token %}
+            <h4 class="card-title">Title</h4>
+            <h6 class="text-muted card-subtitle mb-2">Subtitle</h6>
+            <p class="card-text">{{note.note}}</p>
+          <button class="btn btn-primary" type="submit">Remove</button>
+          <form>
+
+        </div>
+    </div>
+  </div>
+{% endfor %}
+{% endif %} 
+
+
+<script>
+    $(document).ready(function(){
+        $("#button1").click(function(){
+            $(".content").hide();
+            $("#content1").show();
+        });
+        $("#button2").click(function(){
+            $(".content").hide();
+            $("#content2").show();
+        });
+        $("#button3").click(function(){
+            $(".content").hide();
+            $("#content3").show();
+        });
+        $("#button4").click(function(){
+            $(".content").hide();
+            $("#content4").show();
+        });
+    });
+    
+  function changeVideo(videoId) {
+    var iframe = document.getElementById("video-iframe");
+    //iframe.src = "https://www.youtube.com/embed/" + videoId + '?enablejsapi=1&autoplay=1&controls=1&showinfo=0&disablekb=1&fs=0&rel=0" allowfullscreen="" frameborder="0"width="100%" height="450px"';
+    iframe.src = "https://www.youtube.com/embed/" + videoId + '?enablejsapi=1&autoplay=1&controls=0&showinfo=0&disablekb=1&fs=0&rel=1&modestbranding=1&privacy_mode=1" allowfullscreen="" frameborder="0"width="100%" height="450px"';
+  }
+</script> 
+
+
+
+
+{% endblock content %}

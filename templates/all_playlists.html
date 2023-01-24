@@ -1,0 +1,30 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+
+{% include 'includes/alerts.html' %}
+
+
+  {% if playlists %}
+  <div class="container mx-auto d-flex flex-wrap justify-content-evenly mt-5" >
+    {% for playlist in playlists %}
+      <div class="card" style="width: 18rem;">
+        <img src="{{playlist.thumbnail_url}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{playlist.name}}</h5>
+            <p class="card-text text-truncate">{{playlist.description}}</p>
+            <a href="{% url 'watch_now' playlist.playlist_id %}" class="btn btn-primary">Watch Now</a>
+            <form action="{% url 'delete_playlist' playlist.playlist_id %}" method="POST">
+            {% csrf_token %}
+            <button class="mt-2 btn btn-danger"  type="submit">Delete</button>
+            </form>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+  <h1 class="mx-auto p-4">You have not added any playlists yet</h1>
+  {% endif %}
+</div>
+
+
+{% endblock content %}
