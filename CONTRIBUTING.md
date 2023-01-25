@@ -21,10 +21,10 @@ You will have to add the following API key in order to run the application. Visi
 This will create all the tables in the database
 
 ## Run the Server
-`python manage.py runserver To run the application it by default run on 8000. If you want it to run on some other port just add the port no after runserver like `python manage.py runserver 8000`
+`python manage.py runserver` To run the application it by default run on 8000. If you want it to run on some other port just add the port no after runserver like `python manage.py runserver 8000`
 
 ## Create Superuser
-`python manage.py createsuperuser
+`python manage.py createsuperuser`
 this command will create a superuser. you can now visit the admin URL 'localhost:8000/admin' to access and manage all the data. It is an admin panel.
 
 # You will to make changes and make a pull request to this repo. Once it is approved will be merged
