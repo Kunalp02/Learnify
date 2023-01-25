@@ -1,6 +1,5 @@
 
 async function sendToGPT3(input) {
-    // const apiKey = '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';
     const apiKey = config('OPENAI_API_KEY')
     const endpoint = 'https://api.openai.com/v1/completions?api_key=' + apiKey;
     const data = {
