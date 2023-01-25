@@ -15,13 +15,15 @@ from Accounts.models import Account
 from trycourier import Courier
 from Dashboard.models import Reminder, Playlist
 from django.views.decorators.csrf import csrf_exempt
+from decouple import config
 
-api_key = 'AIzaSyA-0BV5qEM-RKv4GtTQ-D_drmgr3k-RNV4'
+Youtube_data_apiKey = config('Youtube_data_apiKey')
 
 @login_required(login_url='login')
 def dashboard(request):
     return render(request, 'dashboard.html')
 
+@csrf_exempt
 @login_required(login_url='login')
 def add_playlist(request):
     if request.method == 'POST':
@@ -30,7 +32,7 @@ def add_playlist(request):
         match = pattern.match(submitted_item)
         if match:
             playlist_id = match.group(4)
-            url = f'https://www.googleapis.com/youtube/v3/playlists?part=snippet&id={playlist_id}&key={api_key}'
+            url = f'https://www.googleapis.com/youtube/v3/playlists?part=snippet&id={playlist_id}&key={Youtube_data_apiKey}'
             response = requests.get(url)
             data = response.json()
             title = data['items'][0]['snippet']['title']
@@ -51,7 +53,7 @@ def add_playlist(request):
     else:
         return render(request, 'add_playlist.html')
             
-
+@csrf_exempt
 @login_required(login_url='login')
 def delete_playlist(request, playlist_id=None):
     if playlist_id is not None:
@@ -81,7 +83,7 @@ def watch_now(request, playlist_id=None):
         params = {
             'part': 'snippet',
             'playlistId': playlist_id,
-            'key': api_key,
+            'key': Youtube_data_apiKey,
             'maxResults': 50
         }
         videos = []
@@ -113,7 +115,7 @@ def watch_now(request, playlist_id=None):
 def set_reminder(request):
     return render(request, 'set_reminders.html')
 
-
+@csrf_exempt
 def add_note(request, playlist_id):
     if request.method == 'POST':
         note = request.POST.get('note')
@@ -126,6 +128,7 @@ def add_note(request, playlist_id):
     else:
         return render(request, 'new_watch.html')
 
+@csrf_exempt
 def delete_note(request, playlist_id, note_id):
     nt = Note.objects.get(user=request.user, playlist_id=playlist_id, id=note_id)
     nt.delete()

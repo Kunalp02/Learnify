@@ -209,11 +209,14 @@
       </span><span style="color: rgba(255,255,255,0.9);"></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" style="color: white;" id="navcol-2">
               <ul class="navbar-nav ms-auto">
+                  <li class="nav-item"><a class="nav-link active" href="#"><span style="color: rgba(255,255,255,0.9);"> {% if request.user.is_authenticated %}Hi, {{request.user.username}}! {% else %} Guest {% endif %}</span></a></li>
                   <li class="nav-item"><a class="nav-link active" href="{% url 'add_playlist' %}"><span style="color: rgba(255,255,255,0.9);">Add Playlist</span></a></li>
                   <li class="nav-item"><a class="nav-link active" href="{% url 'playlists' %}"><span style="color: rgba(255,255,255,0.9);">Show Playlists</span></a></li>
                   <li class="nav-item"><a class="nav-link " href="{% url 'set_reminder' %}"><span style="color: grey;">Set Reminder</span></a></li>
                   <li class="nav-item"><a class="nav-link active" href="{% url 'notes' %}"><span style="color: rgba(255,255,255,0.9);">Notes</span></a></li>
-              </div>
+                  <li class="nav-item"><a class="nav-link active" href="{% url 'logout' %}"><span style="color: rgba(255,255,255,0.9);">Log Out</span></a></li>
+              
+                </div>
       </div>
     </nav>
   

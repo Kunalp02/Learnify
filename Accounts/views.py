@@ -4,8 +4,11 @@ from django.contrib import messages, auth
 from trycourier import Courier
 from . models import Account
 from django.views.decorators.csrf import csrf_exempt
+from decouple import config
 
-client = Courier(auth_token="pk_prod_TG1GS5TYWYMN47QGJZGXG1YBXQJM")
+
+# client = Courier(auth_token="pk_prod_TG1GS5TYWYMN47QGJZGXG1YBXQJM")
+client = Courier(auth_token=config('AUTH_TOKEN'))
 
 @csrf_exempt
 def login(request):
