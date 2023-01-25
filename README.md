@@ -82,12 +82,9 @@ Learnify' is an open-source project that aims to solve the problem of distractio
 - `/static` Containes All the required CSS, js, bootstrap, and jquery files
 
   
-## Spin up your own app
+## How to Setup and How to Contribute
+Check out the [contributing guide](CONTRIBUTING.MD) for the setup and to know about how you can make contribution.
+Any contributions are welcomed and encouraged. 
 
-Check out the [contributing guide](CONTRIBUTING.MD) for the setup guide. After setup, you can host it wherever you want.
-
-## Contributing
-
-Any contributions are welcomed and encouraged. If you are interested, see the [contributing guide](CONTRIBUTING.MD).
-
-## Improvements
+## What you can contribute ?!
+Check out the [Guidelines](GUIDELINES.MD) to know what you can contribute.
